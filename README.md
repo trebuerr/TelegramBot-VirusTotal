@@ -9,6 +9,7 @@ Check your files in tg
 cp .env.example .env 
 ```
 2. put your token in .env: `BOT_TOKEN=your token`
+`API=your API`
 
 3. run:
 ```bash
