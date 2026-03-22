@@ -1,20 +1,24 @@
 import io
 import requests
 import asyncio
+import os
 
+from dotenv import load_dotenv
 from aiogram import Router, types, F
 from aiogram.types import Message
 from aiogram.filters import CommandStart
 
+load_dotenv()
+API = os.getenv("API")
 
 url_scan = "https://www.virustotal.com/vtapi/v2/file/scan"
 url_report = "https://www.virustotal.com/vtapi/v2/file/report"
-api_key = "1b2d7f20238acdd42938d72d3d7373c37d1d3930fa1d61ead7b7e1cc94414648" 
+api_key = API
 
 router = Router()
 
 async def check_result(scan_id: str | int):
-    report_params = {'apikey': f'{api_key}', 'resource': f'{scan_id}'}
+    report_params = {'apikey': f'{API}', 'resource': f'{scan_id}'}
     report_response = requests.Response()
     response_code = 0
     status_code = 0
@@ -63,7 +67,7 @@ async def handle_doc(message: types.Message):
     destination.seek(0)
     
     files = {'file': (message.document.file_name, destination)}
-    params = {'apikey': api_key}
+    params = {'apikey': API}
     
     
     response = requests.post(url_scan, files=files, params=params)
